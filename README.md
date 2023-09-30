@@ -4,3 +4,4 @@
 Будет игнрироваться файл crash.log и любые файлы, начинающиеся на crash. и заканчивающиеся на .log
 Будет игнорировать все файлы с окончанием *.tfvars *.tfvars.json *_override.tf *_override.tf.json
 Будет игнорировать файлы override.tf override.tf.json .terraformrc terraform.rc
+new str
