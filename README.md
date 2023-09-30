@@ -5,3 +5,4 @@
 Будет игнорировать все файлы с окончанием *.tfvars *.tfvars.json *_override.tf *_override.tf.json
 Будет игнорировать файлы override.tf override.tf.json .terraformrc terraform.rc
 new str
+ide str
