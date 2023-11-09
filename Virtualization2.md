@@ -19,4 +19,28 @@
 
 # Задача 3
 Установите на личный linux-компьютер(или учебную ВМ с linux):
-
+- vbox
+```
+virtualbox                                 6.1.38-dfsg-3~ubuntu1.22.04.1           amd64        x86 virtualization solution - base binaries
+```
+- vagrant
+```
+Vagrant 2.4.0
+```
+- ansible
+```
+ansible [core 2.15.6]
+  config file = None
+  configured module search path = ['/root/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.10/dist-packages/ansible
+  ansible collection location = /root/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/local/bin/ansible
+  python version = 3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0] (/usr/bin/python3)
+  jinja version = 3.1.2
+  libyaml = True
+```
+- terraform
+```
+Terraform v1.6.3
+on linux_amd64
+```
