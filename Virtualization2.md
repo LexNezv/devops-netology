@@ -46,8 +46,7 @@ on linux_amd64
 ```
 
 # Задача 4
-В целом я умею обращаться с ansible и vagrant
-Данная конкретная задача плохо выполнима из-за ошибки, побороть ее я не смог
+Опыт общения с ansible и vagrant есть. Данная конкретная задача плохо выполнима из-за ошибки, побороть ее я не смог
 ```
 Bringing machine 'server1.netology' up with 'virtualbox' provider...
 ==> server1.netology: Clearing any previously set forwarded ports...
