@@ -44,3 +44,28 @@ ansible [core 2.15.6]
 Terraform v1.6.3
 on linux_amd64
 ```
+
+# Задача 4
+В целом я умею обращаться с ansible и vagrant
+Данная конкретная задача плохо выполнима из-за ошибки, побороть ее я не смог
+```
+Bringing machine 'server1.netology' up with 'virtualbox' provider...
+==> server1.netology: Clearing any previously set forwarded ports...
+==> server1.netology: Clearing any previously set network interfaces...
+==> server1.netology: Preparing network interfaces based on configuration...
+    server1.netology: Adapter 1: nat
+    server1.netology: Adapter 2: hostonly
+==> server1.netology: Forwarding ports...
+    server1.netology: 22 (guest) => 20011 (host) (adapter 1)
+    server1.netology: 22 (guest) => 2222 (host) (adapter 1)
+==> server1.netology: Running 'pre-boot' VM customizations...
+==> server1.netology: Booting VM...
+There was an error while executing `VBoxManage`, a CLI used by Vagrant
+for controlling VirtualBox. The command and stderr is shown below.
+
+Command: ["startvm", "df429828-3f8d-4cb2-bd47-e99c946e1c80", "--type", "headless"]
+
+Stderr: VBoxManage: error: AMD-V is not available (VERR_SVM_NO_SVM)
+VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+
+```
