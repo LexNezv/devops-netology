@@ -67,8 +67,12 @@ root@user-netology:~# docker exec agitated_kowalevski ls -l /data/testfile
 
 ```
 
-## Задача 4 (*)
+# Задача 4 (*)
 
 Воспроизведите практическую часть лекции самостоятельно.
 
 Соберите Docker-образ с Ansible, загрузите на Docker Hub и пришлите ссылку вместе с остальными ответами к задачам.
+
+```
+docker pull lexnezv/netologyansible:latest
+```
