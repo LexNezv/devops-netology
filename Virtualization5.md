@@ -18,8 +18,9 @@
 ```
 docker node ls
 ```
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/345f01f6-f91c-4eae-bfa0-a13e78604c34)
 
-## Задача 3
+# Задача 3
 
 Создать ваш первый, готовый к боевой эксплуатации кластер мониторинга, состоящий из стека микросервисов.
 
@@ -27,11 +28,4 @@ docker node ls
 ```
 docker service ls
 ```
-
-## Задача 4 (*)
-
-Выполнить на лидере Docker Swarm кластера команду (указанную ниже) и дать письменное описание её функционала, что она делает и зачем она нужна:
-```
-# см.документацию: https://docs.docker.com/engine/swarm/swarm_manager_locking/
-docker swarm update --autolock=true
-```
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/c48e4bc1-24ac-4f7f-af42-7008b7ab2f00)
