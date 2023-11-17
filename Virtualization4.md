@@ -20,6 +20,8 @@
 
 Чтобы получить зачёт, вам нужно предоставить вывод команды "docker ps" , все контейнеры, описанные в [docker-compose](https://github.com/netology-group/virt-homeworks/blob/virt-11/05-virt-04-docker-compose/src/ansible/stack/docker-compose.yaml),  должны быть в статусе "Up".
 
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/f587fd7e-bf9e-4dd1-a042-3f1fc4a90543)
+
 ## Задача 4
 
 1. Откройте веб-браузер, зайдите на страницу http://<внешний_ip_адрес_вашей_ВМ>:3000.
@@ -30,15 +32,6 @@
 Чтобы получить зачёт, предоставьте: 
 
 - скриншот работающего веб-интерфейса Grafana с текущими метриками, как на примере ниже.
-<p align="center">
-  <img width="1200" height="600" src="./assets/yc_02.png">
-</p>
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/1a736a35-071f-48d6-8b9c-991218ebf84c)
 
-## Задача 5 (*)
-
-Создайте вторую ВМ и подключите её к мониторингу, развёрнутому на первом сервере.
-
-Чтобы получить зачёт, предоставьте:
-
-- скриншот из Grafana, на котором будут отображаться метрики добавленного вами сервера.
 
