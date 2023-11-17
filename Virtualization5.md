@@ -18,7 +18,8 @@
 ```
 docker node ls
 ```
-![image](https://github.com/LexNezv/devops-netology/assets/60059176/345f01f6-f91c-4eae-bfa0-a13e78604c34)
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/5c3b4ac7-0195-4f63-91a0-297de468db85)
+
 
 # Задача 3
 
