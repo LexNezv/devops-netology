@@ -5,6 +5,8 @@
 
 
 Чтобы получить зачёт, вам нужно предоставить скриншот страницы с созданным образом из личного кабинета YandexCloud.
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/3457dafe-60f9-433f-8d79-be8bdc8ec548)
+
 
 ## Задача 2
 
