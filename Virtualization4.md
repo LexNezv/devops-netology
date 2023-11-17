@@ -1,22 +1,17 @@
 ## Задача 1
 
-
-Создайте собственный образ любой операционной системы (например, debian-11) с помощью Packer версии 1.7.0 . Перед выполнением задания изучите ([инструкцию!!!](https://cloud.yandex.ru/docs/tutorials/infrastructure-management/packer-quickstart)). В инструкции указана минимальная версия 1.5, но нужно использовать 1.7, так как там есть нужный нам функционал
-
-
 Чтобы получить зачёт, вам нужно предоставить скриншот страницы с созданным образом из личного кабинета YandexCloud.
+
+Ответ:
 ![image](https://github.com/LexNezv/devops-netology/assets/60059176/3457dafe-60f9-433f-8d79-be8bdc8ec548)
 
 
 ## Задача 2
 
-**2.1.** Создайте вашу первую виртуальную машину в YandexCloud с помощью web-интерфейса YandexCloud.        
-
-**2.2.*** **(Необязательное задание)**      
-Создайте вашу первую виртуальную машину в YandexCloud с помощью Terraform (вместо использования веб-интерфейса YandexCloud).
-Используйте Terraform-код в директории ([src/terraform](https://github.com/netology-group/virt-homeworks/tree/virt-11/05-virt-04-docker-compose/src/terraform)).
-
 Чтобы получить зачёт, вам нужно предоставить вывод команды terraform apply и страницы свойств, созданной ВМ из личного кабинета YandexCloud.
+
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/c6783532-be64-47a3-b466-763dd7e6db0e)
+
 
 ## Задача 3
 
