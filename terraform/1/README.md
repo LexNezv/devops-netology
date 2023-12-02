@@ -86,8 +86,14 @@ shekeriev.
 
 В итоге с помощью вагранта ```vagrant package --base image --output ./mybox.box``` упаковал образ в бокс и терраформ и он создался но не запускался.
 Оказалось, что "hostonly" устаревший тип адаптера для виртуалбокс, сменил на nat и все завелось.
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/dd265678-93a2-4a47-9e23-afc429f7411d)
 
-План:
+Снимок экрана с запущенной ВМ:
+
+![image](https://github.com/LexNezv/devops-netology/assets/60059176/34b00f75-1fd1-4445-9fd6-7caba5970cf4)
+
+
+Терраформ план:
 ```
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
