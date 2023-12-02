@@ -63,6 +63,52 @@ b0439aef5f29   a6bd71f48f68   "/docker-entrypoint.…"   6 seconds ago   Up 5 se
 ```
 - Объясните, почему при этом не был удалён docker-образ **nginx:latest**. Ответ **обязательно** подкрепите строчкой из документации [**terraform провайдера docker**](https://docs.comcloud.xyz/providers/kreuzwerker/docker/latest/docs).  (ищите в классификаторе resource docker_image )
   - Потому что мы указали, что его нужно сохранить с помощью keep_locally.
-  ```
-  keep_locally (Boolean) If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage on destroy operation.
-  ```
+```
+keep_locally (Boolean) If true, then the Docker image won't be deleted on destroy operation. If this is false, it will delete the image from the docker local storage destroy operation.
+```
+
+### Задание 2*
+
+1. Изучите в документации provider [**Virtualbox**](https://docs.comcloud.xyz/providers/shekeriev/virtualbox/latest/docs) от
+shekeriev.
+2. Создайте с его помощью любую виртуальную машину. Чтобы не использовать VPN, советуем выбрать любой образ с расположением в GitHub из [**списка**](https://www.vagrantbox.es/).
+
+В качестве ответа приложите plan для создаваемого ресурса и скриншот созданного в VB ресурса.
+
+```
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # virtualbox_vm.vm1[0m will be created
+[0m  [32m+[0m[0m resource "virtualbox_vm" "vm1" {
+      [32m+[0m[0m cpus   = 1
+      [32m+[0m[0m id     = (known after apply)
+      [32m+[0m[0m image  = "https://app.vagrantup.com/shekeriev/boxes/debian-11/versions/0.2/providers/virtualbox.box"
+      [32m+[0m[0m memory = "512 mib"
+      [32m+[0m[0m name   = "debian-11"
+      [32m+[0m[0m status = "running"
+
+      [32m+[0m[0m network_adapter {
+          [32m+[0m[0m device                 = "IntelPro1000MTDesktop"
+          [32m+[0m[0m host_interface         = "vboxnet1"
+          [32m+[0m[0m ipv4_address           = (known after apply)
+          [32m+[0m[0m ipv4_address_available = (known after apply)
+          [32m+[0m[0m mac_address            = (known after apply)
+          [32m+[0m[0m status                 = (known after apply)
+          [32m+[0m[0m type                   = "hostonly"
+        }
+    }
+
+[1mPlan:[0m 1 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m IPAddress = (known after apply)
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+```
