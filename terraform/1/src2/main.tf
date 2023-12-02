@@ -12,18 +12,18 @@ provider "virtualbox" {
   mintimeout = 5
 }
 
-resource "virtualbox_vm" "vm1" {
-  name   = "debian-11"
-  image  = "https://app.vagrantup.com/shekeriev/boxes/debian-11/versions/0.2/providers/virtualbox.box"
+resource "virtualbox_vm" "virtualtest" {
+  name   = "testvm"
+  image  = "./mybox.box"
   cpus      = 1
-  memory    = "512 mib"
+  memory    = "1024 mib"
   network_adapter {
-    type           = "hostonly"
+    type           = "nat"
     device         = "IntelPro1000MTDesktop"
     host_interface = "vboxnet1"
   }
 }
 
 output "IPAddress" {
-  value = element(virtualbox_vm.vm1.*.network_adapter.0.ipv4_address, 1)
+  value = element(virtualbox_vm.virtualtest.*.network_adapter.0.ipv4_address, 1)
 }
