@@ -11,16 +11,16 @@ resource "yandex_vpc_subnet" "develop" {
 
 
 data "yandex_compute_image" "ubuntu" {
-  family = "ubuntu-2004-lts"
+  family = var.vm_web_core_family
 }
 
 resource "yandex_compute_instance" "platform" {
   name        = "netology-develop-platform-web"
-  platform_id = "standard-v1" #error Platform "standard-v4" not found
+  platform_id = "standard-v1"
   resources {
-    cores         = 2 #error the specified number of cores is not available on platform "standard-v1"; allowed core number: 2, 4
-    memory        = 1
-    core_fraction = 5
+    cores         = var.vm_web_cores
+    memory        = var.vm_web_memory
+    core_fraction = var.vm_web_core_fraction
   }
   boot_disk {
     initialize_params {
