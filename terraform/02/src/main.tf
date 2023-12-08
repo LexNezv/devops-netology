@@ -1,6 +1,7 @@
 resource "yandex_vpc_network" "develop" {
   name = var.vpc_name
 }
+
 resource "yandex_vpc_subnet" "develop" {
   name           = var.vpc_name
   zone           = var.default_zone
@@ -12,11 +13,12 @@ resource "yandex_vpc_subnet" "develop" {
 data "yandex_compute_image" "ubuntu" {
   family = "ubuntu-2004-lts"
 }
+
 resource "yandex_compute_instance" "platform" {
   name        = "netology-develop-platform-web"
-  platform_id = "standart-v4"
+  platform_id = "standard-v1" #error Platform "standard-v4" not found
   resources {
-    cores         = 1
+    cores         = 2 #error the specified number of cores is not available on platform "standard-v1"; allowed core number: 2, 4
     memory        = 1
     core_fraction = 5
   }

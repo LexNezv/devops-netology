@@ -16,7 +16,7 @@ variable "folder_id" {
 
 variable "default_zone" {
   type        = string
-  default     = "ru-central1-a"
+  default     = "ru-central1-b"
   description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
 }
 variable "default_cidr" {
@@ -36,6 +36,6 @@ variable "vpc_name" {
 
 variable "vms_ssh_root_key" {
   type        = string
-  default     = "<your_ssh_ed25519_key>"
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5Y8WONOxPmCuDI1LN/UXHthViZe+inj/uOq7030Ytz"
   description = "ssh-keygen -t ed25519"
 }
