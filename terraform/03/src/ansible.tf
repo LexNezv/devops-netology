@@ -5,5 +5,5 @@ resource "local_file" "hosts_create" {
       databases  =  yandex_compute_instance.db, 
       storage    =  [yandex_compute_instance.storage]
       }  )
-  filename = "${abspath(path.module)}/hosts.cfg"
+  filename = "${abspath(path.module)}/hosts"
 }
