@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "web" {
-count = 2
-name = "web-${count.index + 1}"
+  count = 2
+  name = "web-${count.index + 1}"
   platform_id = "standard-v1"
   resources {
     cores         = var.vms_resources.web.cores
