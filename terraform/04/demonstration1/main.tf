@@ -14,7 +14,13 @@ provider "yandex" {
   zone      = var.default_zone
 }
 
-
+#подключение модуля
+module "vpc_dev" {
+  source       = "./vpc"
+  zone = "ru-central1-a"
+  cidr = "10.0.1.0/24"
+  env_name = "develop"
+}
 
 #создаем облачную сеть
 resource "yandex_vpc_network" "develop" {
