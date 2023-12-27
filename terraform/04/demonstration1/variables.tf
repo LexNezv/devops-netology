@@ -35,3 +35,9 @@ variable "public_key" {
   type    = string
   default = ""
 }
+
+variable "ssh-authorized-keys" {
+  type        = list(string)
+  default     = ["~/.ssh/id_ed25519.pub"]
+  description = "SSH-key file: ssh-keygen -t ed25519"
+}
