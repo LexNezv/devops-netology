@@ -7,12 +7,12 @@ terraform {
   required_version = ">=0.13"
 }
 
-# Создать сеть
+# create network
 resource "yandex_vpc_network" "vpc" {
   name = var.env_name
 }
 
-# Создать подсеть
+# create subnet
 resource "yandex_vpc_subnet" "subnet" {
   name           = "${var.env_name}-${var.zone}"
   zone           = var.zone
