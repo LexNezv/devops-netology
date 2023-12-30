@@ -12,8 +12,3 @@ variable "network_id" {
   type    = string
   description = "network id"
 }
-
-variable "hosts"{
-  type = list(string)
-  default = ["name1","name2"]
-}
