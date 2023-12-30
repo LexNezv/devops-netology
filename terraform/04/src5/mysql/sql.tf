@@ -28,16 +28,13 @@ resource "yandex_mdb_mysql_cluster" "cluster" {
 
   }
 
-  #second host if HA ==true
-  host {
-    zone      = "ru-central1-a"
-    subnet_id = var.network_id
+  #second host if hf ==true
+  dynamic "host" {
+    for_each = var.ha == true ? {1:"ru-central1-a",2:"ru-central1-a"} : {1:"ru-central1-a"}
+    content{
+        zone      = host.value
+        subnet_id = var.network_id
     }
-
-  host {
-    zone      = "ru-central1-a"
-    subnet_id = var.network_id
-    }
-  
+  }
 }
 
