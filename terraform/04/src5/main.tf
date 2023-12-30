@@ -15,10 +15,19 @@ provider "yandex" {
 }
 
 #enable module
+module "vpc_dev" {
+  source       = "./vpc"
+  zone = "ru-central1-a"
+  cidr = "10.0.1.0/24"
+  env_name = "test"
+}
+
+#enable module
 module "mysql" {
-  HA       = true
+  source       = "./mysql"
+  ha       = true
   cluster_name = "test"
-  network_id = ???
+  network_id = module.vpc_dev.subnet_id
 }
 
 

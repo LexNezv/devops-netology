@@ -1,6 +1,6 @@
-variable "HA" {
+variable "ha" {
   type    = bool
-  description = "hosts number"
+  description = "hosts > 1"
 }
 
 variable "cluster_name" {
@@ -11,4 +11,9 @@ variable "cluster_name" {
 variable "network_id" {
   type    = string
   description = "network id"
+}
+
+variable "hosts"{
+  type = list(string)
+  default = ["name1","name2"]
 }

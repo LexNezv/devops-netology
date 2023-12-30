@@ -8,7 +8,7 @@ terraform {
 }
 
 
-resource "yandex_mdb_mysql_cluster" "${var.cluster_name}" {
+resource "yandex_mdb_mysql_cluster" "cluster" {
   name                = var.cluster_name
   environment         = "PRESTABLE"
   network_id          = var.network_id
@@ -28,9 +28,16 @@ resource "yandex_mdb_mysql_cluster" "${var.cluster_name}" {
 
   }
 
+  #second host if HA ==true
   host {
     zone      = "ru-central1-a"
     subnet_id = var.network_id
-  }
+    }
+
+  host {
+    zone      = "ru-central1-a"
+    subnet_id = var.network_id
+    }
+  
 }
 
