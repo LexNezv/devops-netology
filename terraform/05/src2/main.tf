@@ -13,6 +13,9 @@ terraform {
  
  skip_region_validation = true
  skip_credentials_validation = true
+
+  dynamodb_endpoint = "https://docapi.serverless.yandexcloud.net/ru-central1/b1gus312hmbm3drr7i2s/etnfg5p16khh6mtv56rv"
+ dynamodb_table = "tfstate-dev"
  }
 }
 
