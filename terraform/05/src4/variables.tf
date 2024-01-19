@@ -1,43 +1,19 @@
-###cloud vars
-variable "token" {
+variable "ip_address_check" {
   type        = string
-  description = "OAuth-token; https://cloud.yandex.ru/docs/iam/concepts/authorization/oauth-token"
+  default = "192.168.0.2222"
+  description = "ip-адрес"
+  validation {
+    condition     = can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.ip_address_check))
+    error_message = "need true ip-address"
+  }
 }
 
-variable "cloud_id" {
-  type        = string
-  description = "https://cloud.yandex.ru/docs/resource-manager/operations/cloud/get-id"
-}
-
-variable "folder_id" {
-  type        = string
-  description = "https://cloud.yandex.ru/docs/resource-manager/operations/folder/get-id"
-}
-
-variable "default_zone" {
-  type        = string
-  default     = "ru-central1-a"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-variable "default_cidr" {
+variable "ip_addresses" {
   type        = list(string)
-  default     = ["10.0.1.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
-variable "vpc_name" {
-  type        = string
-  default     = "develop"
-  description = "VPC network&subnet name"
-}
-
-variable "public_key" {
-  type    = string
-  default = ""
-}
-
-variable "ssh-authorized-keys" {
-  type        = list(string)
-  default     = ["~/.ssh/id_ed25519.pub"]
-  description = "SSH-key file: ssh-keygen -t ed25519"
+  description = "Список IP-адресов"
+  default     = ["1.1.1.1","1241.12.3.2"]
+  validation {
+    condition     = alltrue([for ip in var.ip_addresses: can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", ip))])
+    error_message = "need correct ip-address"
+  }
 }
