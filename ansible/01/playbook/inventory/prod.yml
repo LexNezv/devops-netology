@@ -7,3 +7,13 @@
     hosts:
       ubuntu:
         ansible_connection: docker
+  fed:
+    hosts:
+      fedora:
+        ansible_connection: docker
+  local:
+    hosts:
+      local1:
+        ansible_connection: ansible.builtin.local
+      local2:
+        ansible_connection: ansible.builtin.local
