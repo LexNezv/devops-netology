@@ -39,7 +39,52 @@ ok: [localhost] => {
 }
 ```
 7. При помощи `ansible-vault` зашифруйте факты в `group_vars/deb` и `group_vars/el` с паролем `netology`.
+```
+---
+  some_fact: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          32383566323233326233626235616164316530383465613730366433383137333262313664306436
+          6534663630383639626132393537363963343936386238620a666334326133383263633039663364
+          65373333373062346666346638633363373537633838663432623964623334393763663465346337
+          3731346465396666640a396339616461383738393331303465643834653063666337613466393662
+          32386365626335373633303139666362346139386366383138643864353331313663
+```
 8. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь в работоспособности.
+```
+ ansible-playbook -i inventory site.yml --ask-vault-pass
+Vault password: 
+
+PLAY [Print os facts] **********************************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************************************
+ok: [ubuntu]
+ok: [centos7]
+[WARNING]: Platform darwin on host localhost is using the discovered Python interpreter at /usr/local/bin/python3.12, but future installation of another Python interpreter
+could change the meaning of that path. See https://docs.ansible.com/ansible-core/2.16/reference_appendices/interpreter_discovery.html for more information.
+ok: [localhost]
+
+TASK [Print OS] ****************************************************************************************************************************************************************
+ok: [centos7] => {
+    "msg": "CentOS"
+}
+ok: [ubuntu] => {
+    "msg": "Debian"
+}
+ok: [localhost] => {
+    "msg": "MacOSX"
+}
+
+TASK [Print fact] **************************************************************************************************************************************************************
+ok: [localhost] => {
+    "msg": "all default fact"
+}
+ok: [centos7] => {
+    "msg": "\"el default fact\""
+}
+ok: [ubuntu] => {
+    "msg": "\"deb default fact\""
+}
+```
 9. Посмотрите при помощи `ansible-doc` список плагинов для подключения. Выберите подходящий для работы на `control node`.
 10. В `prod.yml` добавьте новую группу хостов с именем  `local`, в ней разместите localhost с необходимым типом подключения.
 11. Запустите playbook на окружении `prod.yml`. При запуске `ansible` должен запросить у вас пароль. Убедитесь, что факты `some_fact` для каждого из хостов определены из верных `group_vars`.
