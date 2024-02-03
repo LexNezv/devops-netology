@@ -8,24 +8,18 @@
         name: clickhouse-server
         state: restarted
   tasks:
-    - block:
-        - name: Get clickhouse distrib
-          ansible.builtin.get_url:
-            url: "https://packages.clickhouse.com/rpm/stable/{{ item }}-{{ clickhouse_version }}.noarch.rpm"
-            dest: "./{{ item }}-{{ clickhouse_version }}.rpm"
-          with_items: "{{ clickhouse_packages }}"
-      rescue:
-        - name: Get clickhouse distrib
-          ansible.builtin.get_url:
-            url: "https://packages.clickhouse.com/rpm/stable/clickhouse-common-static-{{ clickhouse_version }}.x86_64.rpm"
-            dest: "./clickhouse-common-static-{{ clickhouse_version }}.rpm"
+    - name: Get clickhouse distrib
+      ansible.builtin.get_url:
+        url: "https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_all.deb"
+        dest: "./{{ item }}-{{ clickhouse_version }}.deb"
+      with_items: "{{ clickhouse_packages }}"
     - name: Install clickhouse packages
       become: true
-      ansible.builtin.yum:
+      ansible.builtin.apt:
         name:
-          - clickhouse-common-static-{{ clickhouse_version }}.rpm
-          - clickhouse-client-{{ clickhouse_version }}.rpm
-          - clickhouse-server-{{ clickhouse_version }}.rpm
+          - clickhouse-common-static-{{ clickhouse_version }}.apt
+          - clickhouse-client-{{ clickhouse_version }}.apt
+          - clickhouse-server-{{ clickhouse_version }}.apt
       notify: Start clickhouse service
     - name: Flush handlers
       meta: flush_handlers
@@ -34,3 +28,10 @@
       register: create_db
       failed_when: create_db.rc != 0 and create_db.rc !=82
       changed_when: create_db.rc == 0
+
+- name: Install vector
+  hosts: vector
+  tasks:
+    - name: Get clickhouse distrib
+      ansible.builtin.get_url: https://packages.timber.io/vector/0.35.0/vector_0.35.0-1_arm64.deb
+      dest: "./vector_0.35.0-1_arm64.deb"
