@@ -689,3 +689,226 @@ Should be written as:
 2024-02-03 22:23:43,348 p=16348 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "cmd": "clickhouse-client -q 'create database logs;'", "failed_when_result": true, "msg": "[Errno 2] No such file or directory: b'clickhouse-client'", "rc": 2, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
 2024-02-03 22:23:43,349 p=16348 u=lex n=ansible | PLAY RECAP ***************************************************************************
 2024-02-03 22:23:43,350 p=16348 u=lex n=ansible | clickhouse-01              : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 12:19:28,431 p=20420 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 12:19:28,465 p=20420 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 12:19:31,066 p=20420 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 12:19:31,084 p=20420 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 12:19:32,467 p=20420 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 12:19:33,293 p=20420 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 12:19:34,403 p=20420 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "item": "clickhouse-common-static", "msg": "Request failed", "response": "HTTP Error 404: Not Found", "status_code": 404, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 12:19:34,416 p=20420 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 12:19:45,988 p=20420 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 12:19:45,997 p=20420 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 12:20:03,729 p=20420 u=lex n=ansible | Selecting previously unselected package clickhouse-common-static.
+(Reading database ... 65405 files and directories currently installed.)
+Preparing to unpack .../clickhouse-common-static-22.3.3.44.deb ...
+Unpacking clickhouse-common-static (22.3.3.44) ...
+Setting up clickhouse-common-static (22.3.3.44) ...
+2024-02-04 12:20:03,731 p=20420 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 12:20:03,740 p=20420 u=lex n=ansible | TASK [Flush handlers] ****************************************************************
+2024-02-04 12:20:03,753 p=20420 u=lex n=ansible | RUNNING HANDLER [Start clickhouse service] *******************************************
+2024-02-04 12:20:05,356 p=20420 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "msg": "Could not find the requested service clickhouse-server: host"}
+2024-02-04 12:20:05,357 p=20420 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 12:20:05,357 p=20420 u=lex n=ansible | clickhouse-01              : ok=3    changed=2    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:07:54,978 p=21295 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:07:55,014 p=21295 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:07:57,708 p=21295 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:07:57,727 p=21295 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:07:59,265 p=21295 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:08:00,355 p=21295 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:08:01,774 p=21295 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "item": "clickhouse-common-static", "msg": "Request failed", "response": "HTTP Error 404: Not Found", "status_code": 404, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:08:01,787 p=21295 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:08:20,443 p=21295 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:08:20,452 p=21295 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:08:22,058 p=21295 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "msg": "Unable to install package: E:Could not open file ['/home/vagrant/clickhouse-common-static-22.3.3.44.deb' - open (2: No such file or directory)"}
+2024-02-04 13:08:22,059 p=21295 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:08:22,059 p=21295 u=lex n=ansible | clickhouse-01              : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:09:45,079 p=21543 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:09:45,110 p=21543 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:09:47,421 p=21543 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:09:47,439 p=21543 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:09:48,476 p=21543 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:09:49,260 p=21543 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:09:50,540 p=21543 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "gid": 0, "group": "root", "item": "clickhouse-common-static", "mode": "0644", "msg": "Request failed", "owner": "root", "response": "HTTP Error 404: Not Found", "size": 246378832, "state": "file", "status_code": 404, "uid": 0, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:09:50,554 p=21543 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:09:51,430 p=21543 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:09:51,436 p=21543 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:09:53,928 p=21543 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-client) => {"ansible_loop_var": "item", "changed": false, "item": "clickhouse-client", "msg": "Dependency is not satisfiable: clickhouse-common-static (= 22.3.3.44)\n"}
+2024-02-04 13:09:56,212 p=21543 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-server) => {"ansible_loop_var": "item", "changed": false, "item": "clickhouse-server", "msg": "Dependency is not satisfiable: clickhouse-common-static (= 22.3.3.44)\n"}
+2024-02-04 13:10:12,057 p=21543 u=lex n=ansible | Selecting previously unselected package clickhouse-common-static.
+(Reading database ... 65405 files and directories currently installed.)
+Preparing to unpack .../clickhouse-common-static-22.3.3.44.deb ...
+Unpacking clickhouse-common-static (22.3.3.44) ...
+Setting up clickhouse-common-static (22.3.3.44) ...
+2024-02-04 13:10:12,058 p=21543 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:10:12,065 p=21543 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:10:12,066 p=21543 u=lex n=ansible | clickhouse-01              : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:11:41,558 p=21791 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:11:41,593 p=21791 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:11:44,755 p=21791 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:11:44,774 p=21791 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:11:46,772 p=21791 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:11:49,120 p=21791 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:11:50,412 p=21791 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "gid": 0, "group": "root", "item": "clickhouse-common-static", "mode": "0644", "msg": "Request failed", "owner": "root", "response": "HTTP Error 404: Not Found", "size": 246378832, "state": "file", "status_code": 404, "uid": 0, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:11:50,429 p=21791 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:11:51,274 p=21791 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:11:51,281 p=21791 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:11:55,808 p=21791 u=lex n=ansible | Selecting previously unselected package clickhouse-client.
+(Reading database ... 65419 files and directories currently installed.)
+Preparing to unpack .../clickhouse-client-22.3.3.44.deb ...
+Unpacking clickhouse-client (22.3.3.44) ...
+Setting up clickhouse-client (22.3.3.44) ...
+2024-02-04 13:11:55,809 p=21791 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:12:02,411 p=21791 u=lex n=ansible | Selecting previously unselected package clickhouse-server.
+(Reading database ... 65432 files and directories currently installed.)
+Preparing to unpack .../clickhouse-server-22.3.3.44.deb ...
+Unpacking clickhouse-server (22.3.3.44) ...
+Setting up clickhouse-server (22.3.3.44) ...
+2024-02-04 13:12:02,412 p=21791 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:12:04,548 p=21791 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:12:04,564 p=21791 u=lex n=ansible | TASK [Flush handlers] ****************************************************************
+2024-02-04 13:12:04,577 p=21791 u=lex n=ansible | RUNNING HANDLER [Start clickhouse service] *******************************************
+2024-02-04 13:12:05,876 p=21791 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:12:05,887 p=21791 u=lex n=ansible | TASK [Create database] ***************************************************************
+2024-02-04 13:12:07,485 p=21791 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "cmd": ["clickhouse-client", "-q", "create database logs;"], "delta": "0:00:00.592974", "end": "2024-02-04 10:12:07.365399", "failed_when_result": true, "msg": "non-zero return code", "rc": 210, "start": "2024-02-04 10:12:06.772425", "stderr": "Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)", "stderr_lines": ["Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)"], "stdout": "", "stdout_lines": []}
+2024-02-04 13:12:07,487 p=21791 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:12:07,487 p=21791 u=lex n=ansible | clickhouse-01              : ok=4    changed=2    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:15:59,140 p=22526 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:15:59,174 p=22526 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:16:01,783 p=22526 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:16:01,801 p=22526 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:16:03,067 p=22526 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "item": "clickhouse-common-static", "msg": "Request failed", "response": "HTTP Error 404: Not Found", "status_code": 404, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:16:03,866 p=22526 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:16:04,644 p=22526 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:16:04,656 p=22526 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:16:13,740 p=22526 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:16:13,746 p=22526 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:16:29,697 p=22526 u=lex n=ansible | Selecting previously unselected package clickhouse-common-static.
+(Reading database ... 65405 files and directories currently installed.)
+Preparing to unpack .../clickhouse-common-static-22.3.3.44.deb ...
+Unpacking clickhouse-common-static (22.3.3.44) ...
+Setting up clickhouse-common-static (22.3.3.44) ...
+2024-02-04 13:16:29,700 p=22526 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:16:34,645 p=22526 u=lex n=ansible | Selecting previously unselected package clickhouse-client.
+(Reading database ... 65419 files and directories currently installed.)
+Preparing to unpack .../clickhouse-client-22.3.3.44.deb ...
+Unpacking clickhouse-client (22.3.3.44) ...
+Setting up clickhouse-client (22.3.3.44) ...
+2024-02-04 13:16:34,646 p=22526 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:16:40,536 p=22526 u=lex n=ansible | Selecting previously unselected package clickhouse-server.
+(Reading database ... 65432 files and directories currently installed.)
+Preparing to unpack .../clickhouse-server-22.3.3.44.deb ...
+Unpacking clickhouse-server (22.3.3.44) ...
+Setting up clickhouse-server (22.3.3.44) ...
+2024-02-04 13:16:40,537 p=22526 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:16:40,551 p=22526 u=lex n=ansible | TASK [Flush handlers] ****************************************************************
+2024-02-04 13:16:40,563 p=22526 u=lex n=ansible | RUNNING HANDLER [Start clickhouse service] *******************************************
+2024-02-04 13:16:41,874 p=22526 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:16:41,887 p=22526 u=lex n=ansible | TASK [Create database] ***************************************************************
+2024-02-04 13:16:43,408 p=22526 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "cmd": ["clickhouse-client", "-q", "create database logs;"], "delta": "0:00:00.588518", "end": "2024-02-04 10:16:43.276009", "failed_when_result": true, "msg": "non-zero return code", "rc": 210, "start": "2024-02-04 10:16:42.687491", "stderr": "Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)", "stderr_lines": ["Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)"], "stdout": "", "stdout_lines": []}
+2024-02-04 13:16:43,410 p=22526 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:16:43,411 p=22526 u=lex n=ansible | clickhouse-01              : ok=4    changed=3    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:22:51,889 p=23169 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:22:51,923 p=23169 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:22:54,545 p=23169 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:22:54,566 p=23169 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:22:55,973 p=23169 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "item": "clickhouse-common-static", "msg": "Request failed", "response": "HTTP Error 404: Not Found", "status_code": 404, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:22:56,843 p=23169 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:22:58,131 p=23169 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:22:58,145 p=23169 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:23:13,386 p=23169 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:23:13,395 p=23169 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:23:29,174 p=23169 u=lex n=ansible | Selecting previously unselected package clickhouse-common-static.
+(Reading database ... 65405 files and directories currently installed.)
+Preparing to unpack .../clickhouse-common-static-22.3.3.44.deb ...
+Unpacking clickhouse-common-static (22.3.3.44) ...
+Setting up clickhouse-common-static (22.3.3.44) ...
+2024-02-04 13:23:29,176 p=23169 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:23:34,095 p=23169 u=lex n=ansible | Selecting previously unselected package clickhouse-client.
+(Reading database ... 65419 files and directories currently installed.)
+Preparing to unpack .../clickhouse-client-22.3.3.44.deb ...
+Unpacking clickhouse-client (22.3.3.44) ...
+Setting up clickhouse-client (22.3.3.44) ...
+2024-02-04 13:23:34,096 p=23169 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:23:39,869 p=23169 u=lex n=ansible | Selecting previously unselected package clickhouse-server.
+(Reading database ... 65432 files and directories currently installed.)
+Preparing to unpack .../clickhouse-server-22.3.3.44.deb ...
+Unpacking clickhouse-server (22.3.3.44) ...
+Setting up clickhouse-server (22.3.3.44) ...
+2024-02-04 13:23:39,870 p=23169 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:23:39,883 p=23169 u=lex n=ansible | TASK [Flush handlers] ****************************************************************
+2024-02-04 13:23:39,899 p=23169 u=lex n=ansible | RUNNING HANDLER [Start clickhouse service] *******************************************
+2024-02-04 13:23:41,215 p=23169 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:23:41,227 p=23169 u=lex n=ansible | TASK [Create database] ***************************************************************
+2024-02-04 13:23:42,689 p=23169 u=lex n=ansible | fatal: [clickhouse-01]: FAILED! => {"changed": false, "cmd": ["clickhouse-client", "-q", "create database logs;"], "delta": "0:00:00.573685", "end": "2024-02-04 10:23:42.654538", "failed_when_result": true, "msg": "non-zero return code", "rc": 210, "start": "2024-02-04 10:23:42.080853", "stderr": "Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)", "stderr_lines": ["Code: 210. DB::NetException: Connection refused (localhost:9000). (NETWORK_ERROR)"], "stdout": "", "stdout_lines": []}
+2024-02-04 13:23:42,691 p=23169 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:23:42,691 p=23169 u=lex n=ansible | clickhouse-01              : ok=4    changed=3    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:24:23,622 p=23574 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:24:23,650 p=23574 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:24:25,698 p=23574 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:24:25,718 p=23574 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:24:27,030 p=23574 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 0, "gid": 1000, "group": "vagrant", "item": "clickhouse-common-static", "mode": "0664", "msg": "Request failed", "owner": "vagrant", "response": "HTTP Error 404: Not Found", "size": 246378832, "state": "file", "status_code": 404, "uid": 1000, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:24:29,589 p=23574 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:24:31,677 p=23574 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:24:31,689 p=23574 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:24:32,552 p=23574 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:24:32,559 p=23574 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:24:34,910 p=23574 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:24:36,808 p=23574 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:24:38,587 p=23574 u=lex n=ansible | ok: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:24:38,601 p=23574 u=lex n=ansible | TASK [Flush handlers] ****************************************************************
+2024-02-04 13:24:38,615 p=23574 u=lex n=ansible | TASK [Create database] ***************************************************************
+2024-02-04 13:24:39,362 p=23574 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:24:39,394 p=23574 u=lex n=ansible | PLAY [Install vector] ****************************************************************
+2024-02-04 13:24:39,404 p=23574 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:24:41,322 p=23574 u=lex n=ansible | ok: [vector-01]
+2024-02-04 13:24:41,337 p=23574 u=lex n=ansible | TASK [Get vector distrib] ************************************************************
+2024-02-04 13:24:44,144 p=23574 u=lex n=ansible | changed: [vector-01]
+2024-02-04 13:24:44,166 p=23574 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:24:44,167 p=23574 u=lex n=ansible | clickhouse-01              : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+2024-02-04 13:24:44,167 p=23574 u=lex n=ansible | vector-01                  : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-02-04 13:26:30,800 p=23908 u=lex n=ansible |  [ERROR]: User interrupted execution
+
+2024-02-04 13:27:28,387 p=24031 u=lex n=ansible | ERROR! conflicting action statements: ansible.builtin.pause, seconds
+
+The error appears to be in '/Users/lex/git/devops-netology/ansible/02/playbook/site.yml': line 33, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+    - name: Pause 10 seconds
+      ^ here
+
+2024-02-04 13:27:53,121 p=24091 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:27:53,151 p=24091 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:28:03,224 p=24091 u=lex n=ansible | fatal: [clickhouse-01]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.11 port 22: Operation timed out", "unreachable": true}
+2024-02-04 13:28:03,225 p=24091 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:28:03,226 p=24091 u=lex n=ansible | clickhouse-01              : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-02-04 13:29:19,695 p=24292 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:29:19,727 p=24292 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:29:29,813 p=24292 u=lex n=ansible | fatal: [clickhouse-01]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 192.168.56.11 port 22: Operation timed out", "unreachable": true}
+2024-02-04 13:29:29,815 p=24292 u=lex n=ansible | PLAY RECAP ***************************************************************************
+2024-02-04 13:29:29,815 p=24292 u=lex n=ansible | clickhouse-01              : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-02-04 13:32:20,799 p=24551 u=lex n=ansible | PLAY [Install Clickhouse] ************************************************************
+2024-02-04 13:32:20,816 p=24551 u=lex n=ansible | TASK [Gathering Facts] ***************************************************************
+2024-02-04 13:32:23,157 p=24551 u=lex n=ansible | ok: [clickhouse-01]
+2024-02-04 13:32:23,176 p=24551 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:32:26,868 p=24551 u=lex n=ansible | failed: [clickhouse-01] (item=clickhouse-common-static) => {"ansible_loop_var": "item", "changed": false, "dest": "/home/vagrant/clickhouse-common-static-22.3.3.44.deb", "elapsed": 2, "item": "clickhouse-common-static", "msg": "Request failed", "response": "HTTP Error 404: Not Found", "status_code": 404, "url": "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_22.3.3.44_all.deb"}
+2024-02-04 13:32:27,792 p=24551 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)
+2024-02-04 13:32:28,553 p=24551 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-server)
+2024-02-04 13:32:28,565 p=24551 u=lex n=ansible | TASK [Get clickhouse distrib] ********************************************************
+2024-02-04 13:32:38,833 p=24551 u=lex n=ansible | changed: [clickhouse-01]
+2024-02-04 13:32:38,841 p=24551 u=lex n=ansible | TASK [Install clickhouse packages] ***************************************************
+2024-02-04 13:32:54,678 p=24551 u=lex n=ansible | Selecting previously unselected package clickhouse-common-static.
+(Reading database ... 65405 files and directories currently installed.)
+Preparing to unpack .../clickhouse-common-static-22.3.3.44.deb ...
+Unpacking clickhouse-common-static (22.3.3.44) ...
+Setting up clickhouse-common-static (22.3.3.44) ...
+2024-02-04 13:32:54,680 p=24551 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-common-static)
+2024-02-04 13:32:59,902 p=24551 u=lex n=ansible | Selecting previously unselected package clickhouse-client.
+(Reading database ... 65419 files and directories currently installed.)
+Preparing to unpack .../clickhouse-client-22.3.3.44.deb ...
+Unpacking clickhouse-client (22.3.3.44) ...
+Setting up clickhouse-client (22.3.3.44) ...
+2024-02-04 13:32:59,904 p=24551 u=lex n=ansible | changed: [clickhouse-01] => (item=clickhouse-client)

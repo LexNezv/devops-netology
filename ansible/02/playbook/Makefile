@@ -1,2 +1,2 @@
 run:
-	ansible-playbook site.yml -u vagrant -kKb -D
+	ansible-playbook site.yml -u vagrant -kK -D
