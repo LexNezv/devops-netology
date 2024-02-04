@@ -54,7 +54,25 @@ risky-file-permissions: File permissions unset or incorrect.
 site.yml:84 Task/Handler: copy vector config
 ```
 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
+```
+PLAY RECAP *********************************************************************************************************************************************************************
+clickhouse-01              : ok=5    changed=0    unreachable=0    failed=0    skipped=2    rescued=1    ignored=0   
+vector-01                  : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе произведены.
+```
+ansible-playbook site.yml -u vagrant -kK --diff
+PLAY RECAP *********************************************************************************************************************************************************************
+clickhouse-01              : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+vector-01                  : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+
+```
 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
+```
+PLAY RECAP *********************************************************************************************************************************************************************
+clickhouse-01              : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+vector-01                  : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 9. Подготовьте README.md-файл по своему playbook. В нём должно быть описано: что делает playbook, какие у него есть параметры и теги. Пример качественной документации ansible playbook по [ссылке](https://github.com/opensearch-project/ansible-playbook). Так же приложите скриншоты выполнения заданий №5-8
 10. Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-02-playbook` на фиксирующий коммит, в ответ предоставьте ссылку на него.

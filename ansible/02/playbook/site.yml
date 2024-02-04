@@ -36,9 +36,10 @@
 
     - name: Flush handlers
       ansible.builtin.meta: flush_handlers
-    - name: Pause 3 seconds
+
+    - name: Pause before create db
       ansible.builtin.pause:
-        seconds: 3
+        seconds: 6
 
     - name: Create database
       ansible.builtin.command: clickhouse-client -q 'create database logs;'
@@ -47,12 +48,7 @@
       changed_when: create_db.rc == 0
 
     - name: Create table
-      ansible.builtin.shell: |
-        "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (
-         message String
-        )
-        ENGINE = MergeTree()
-        ORDER BY tuple()'"
+      ansible.builtin.command: "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (message String) ENGINE = MergeTree() ORDER BY tuple()'"
       ignore_errors: true
 
 - name: Install vector
@@ -85,4 +81,7 @@
       ansible.builtin.template:
         src: templates/vector.yaml.j2
         dest: /etc/vector/vector.yaml
-      notify: restart vector service
+      notify: Restart vector service
+    
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
