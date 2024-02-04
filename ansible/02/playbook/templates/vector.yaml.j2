@@ -21,10 +21,11 @@ sources:
     type: "demo_logs"
     format: "syslog"
     interval: 1
-#  nginx_logs:
-#    type: "file"
-#    include: "/var/log/nginx/access.log"
-#    read_from: "end"
+  nginx_logs:
+    type: "file"
+    include: 
+      - "/var/log/nginx/access.log"
+    read_from: "end"
 
 # Parse Syslog logs
 # See the Vector Remap Language reference for more info: https://vrl.dev
@@ -46,9 +47,11 @@ sinks:
     type: "clickhouse"
     inputs:
       - "parse_logs"
+      - "nginx_logs"
     endpoint: "http://{{clickhouse_ip}}:8123"
     database: "logs"
     table: "logtable"
+    skip_unknown_fields: true
 
 # Vector's GraphQL API (disabled by default)
 # Uncomment to try it out with the `vector top` command or

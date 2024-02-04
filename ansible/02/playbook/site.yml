@@ -27,12 +27,19 @@
       with_items: "{{ clickhouse_packages }}"
       notify: Start clickhouse service
 
+    - name: copy clickhouse config
+      become: true
+      ansible.builtin.template:
+        src: templates/config.xml.j2
+        dest: /etc/clickhouse-server/config.xml
+      notify: Start clickhouse service
+
     - name: Flush handlers
       meta: flush_handlers
 
-    - name: Pause 10 seconds
+    - name: Pause 3 seconds
       ansible.builtin.pause:
-        seconds: 10
+        seconds: 3
 
     - name: Create database
       ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
@@ -41,15 +48,13 @@
       changed_when: create_db.rc == 0
 
     - name: Create table
-      ansible.builtin.command: |
+      ansible.builtin.shell: |
         "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (
          message String
         )
         ENGINE = MergeTree()
         ORDER BY tuple()'"
-      register: create_t
-      failed_when: create_t.rc != 0 and create_t.rc !=82
-      changed_when: create_t.rc == 0
+      ignore_errors: true
 
 - name: Install vector
   hosts: vector
@@ -70,7 +75,7 @@
       ansible.builtin.apt:
         deb: "vector_0.35.0-1_amd64.deb"
 
-    - name: Install nginx
+    - name: Install nginx for logs
       become: true
       ansible.builtin.apt:
         name: nginx

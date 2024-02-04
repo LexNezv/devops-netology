@@ -5,3 +5,4 @@ clickhouse_packages:
   - clickhouse-client
   - clickhouse-server
 download_path: /home/vagrant
+listen_ip: 0.0.0.0
