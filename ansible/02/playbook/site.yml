@@ -17,7 +17,7 @@
       rescue:
         - name: Get clickhouse distrib
           ansible.builtin.get_url:
-            url: "https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb"
+            url: https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb
             dest: "{{ download_path }}/clickhouse-common-static-{{ clickhouse_version }}.deb"
 
     - name: Install clickhouse packages
@@ -27,7 +27,7 @@
       with_items: "{{ clickhouse_packages }}"
       notify: Start clickhouse service
 
-    - name: copy clickhouse config
+    - name: Copy clickhouse config
       become: true
       ansible.builtin.template:
         src: templates/config.xml.j2
@@ -35,14 +35,13 @@
       notify: Start clickhouse service
 
     - name: Flush handlers
-      meta: flush_handlers
-
+      ansible.builtin.meta: flush_handlers
     - name: Pause 3 seconds
       ansible.builtin.pause:
         seconds: 3
 
     - name: Create database
-      ansible.builtin.command: "clickhouse-client -q 'create database logs;'"
+      ansible.builtin.command: clickhouse-client -q 'create database logs;'
       register: create_db
       failed_when: create_db.rc != 0 and create_db.rc !=82
       changed_when: create_db.rc == 0
@@ -59,29 +58,29 @@
 - name: Install vector
   hosts: vector
   handlers:
-    - name: restart vector service
+    - name: Restart vector service
       become: true
       ansible.builtin.service:
         name: vector
         state: restarted
   tasks:
     - name: Get vector distrib
-      ansible.builtin.get_url: 
+      ansible.builtin.get_url:
         url: https://packages.timber.io/vector/0.35.0/vector_0.35.0-1_amd64.deb
         dest: ./vector_0.35.0-1_amd64.deb
 
     - name: Install vector
       become: true
       ansible.builtin.apt:
-        deb: "vector_0.35.0-1_amd64.deb"
+        deb: vector_0.35.0-1_amd64.deb
 
     - name: Install nginx for logs
       become: true
       ansible.builtin.apt:
         name: nginx
-        update_cache: yes
+        update_cache: true
 
-    - name: copy vector config
+    - name: Copy vector config
       become: true
       ansible.builtin.template:
         src: templates/vector.yaml.j2
