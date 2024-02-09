@@ -26,7 +26,10 @@ vector-01                  : ok=6    changed=3    unreachable=0    failed=0    s
 ```
 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе произведены.
 ```
-
+PLAY RECAP **********************************************************************************************************************************************************
+clickhouse-01              : ok=8    changed=6    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+lighthouse-01              : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vector-01                  : ok=6    changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
 ```
 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
 ```
