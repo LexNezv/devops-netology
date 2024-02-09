@@ -89,13 +89,33 @@
 - name: Install lighthouse
   hosts: lighthouse
   handlers:
-    - name: Restart lighthouse service
+    - name: Reload nginx conf lighthouse
       become: true
-      ansible.builtin.service:
-        name: lighthouse
-        state: restarted
+      ansible.builtin.command: "nginx -s reload"
   tasks:
+    - name: Install nginx + git for lighthouse
+      become: true
+      ansible.builtin.apt:
+        name: 
+          - nginx
+          - git
+        update_cache: true
+    
+    - name: Creates nginx site directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ root_dir }}"
+        state: directory
+
     - name: Get lighthouse distrib
+      become: true
       ansible.builtin.git:
-        repo: 'https://foosball.example.org/path/to/repo.git'
-        dest: "{{ download_path }}"
+        repo: 'https://github.com/VKCOM/lighthouse.git'
+        dest: "{{ root_dir }}/lignthouse"
+
+    - name: Copy nginx lighthouse config
+      become: true
+      ansible.builtin.template:
+        src: templates/nginxdefault.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Reload nginx conf lighthouse
