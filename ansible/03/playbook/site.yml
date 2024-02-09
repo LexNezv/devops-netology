@@ -85,3 +85,17 @@
     
     - name: Flush handlers
       ansible.builtin.meta: flush_handlers
+
+- name: Install lighthouse
+  hosts: lighthouse
+  handlers:
+    - name: Restart lighthouse service
+      become: true
+      ansible.builtin.service:
+        name: lighthouse
+        state: restarted
+  tasks:
+    - name: Get lighthouse distrib
+      ansible.builtin.git:
+        repo: 'https://foosball.example.org/path/to/repo.git'
+        dest: "{{ download_path }}"
