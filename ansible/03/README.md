@@ -11,10 +11,30 @@
 2. При создании tasks рекомендую использовать модули: `get_url`, `template`, `yum`, `apt`.
 3. Tasks должны: скачать статику LightHouse, установить Nginx или любой другой веб-сервер, настроить его конфиг для открытия LightHouse, запустить веб-сервер.
 4. Подготовьте свой inventory-файл `prod.yml`.
-5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть.
+5. Запустите `ansible-lint site.yml` и исправьте ошибки, если они есть. - исправлены
 6. Попробуйте запустить playbook на этом окружении с флагом `--check`.
+```
+PLAY RECAP **********************************************************************************************************************************************************
+clickhouse-01              : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=1    ignored=0  
+#Потому что не может установить не существующие файлы и сервисы
+#Добавил ignore_errors: "{{ ansible_check_mode }}" для успешного прохождения check там, где невозможно проверить
+#Результат:
+PLAY RECAP **********************************************************************************************************************************************************
+clickhouse-01              : ok=6    changed=2    unreachable=0    failed=0    skipped=2    rescued=1    ignored=2   
+lighthouse-01              : ok=5    changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=1   
+vector-01                  : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=2   
+```
 7. Запустите playbook на `prod.yml` окружении с флагом `--diff`. Убедитесь, что изменения на системе произведены.
+```
+
+```
 8. Повторно запустите playbook с флагом `--diff` и убедитесь, что playbook идемпотентен.
+```
+PLAY RECAP **********************************************************************************************************************************************************
+clickhouse-01              : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+lighthouse-01              : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+vector-01                  : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+```
 9. Подготовьте README.md-файл по своему playbook. В нём должно быть описано: что делает playbook, какие у него есть параметры и теги.
 10. Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-03-yandex` на фиксирующий коммит, в ответ предоставьте ссылку на него.
 
