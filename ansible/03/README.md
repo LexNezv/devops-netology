@@ -41,3 +41,7 @@ vector-01                  : ok=5    changed=0    unreachable=0    failed=0    s
 9. Подготовьте README.md-файл по своему playbook. В нём должно быть описано: что делает playbook, какие у него есть параметры и теги.
 10. Готовый playbook выложите в свой репозиторий, поставьте тег `08-ansible-03-yandex` на фиксирующий коммит, в ответ предоставьте ссылку на него.
 
+
+![telegram-cloud-photo-size-2-5346087699506911407-y](https://github.com/LexNezv/devops-netology/assets/60059176/aa4a4d20-f809-4f67-a369-16ea0efe4306)
+
+
