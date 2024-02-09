@@ -48,7 +48,7 @@
       changed_when: create_db.rc == 0
 
     - name: Create table
-      ansible.builtin.command: "clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (message String) ENGINE = MergeTree() ORDER BY tuple()'"
+      ansible.builtin.command: clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (message String) ENGINE = MergeTree() ORDER BY tuple()'
       ignore_errors: true
 
 - name: Install vector
@@ -82,7 +82,7 @@
         src: templates/vector.yaml.j2
         dest: /etc/vector/vector.yaml
       notify: Restart vector service
-    
+
     - name: Flush handlers
       ansible.builtin.meta: flush_handlers
 
@@ -91,16 +91,16 @@
   handlers:
     - name: Reload nginx conf lighthouse
       become: true
-      ansible.builtin.command: "nginx -s reload"
+      ansible.builtin.command: nginx -s reload
   tasks:
     - name: Install nginx + git for lighthouse
       become: true
       ansible.builtin.apt:
-        name: 
+        name:
           - nginx
           - git
         update_cache: true
-    
+
     - name: Creates nginx site directory
       become: true
       ansible.builtin.file:
@@ -110,7 +110,7 @@
     - name: Get lighthouse distrib
       become: true
       ansible.builtin.git:
-        repo: 'https://github.com/VKCOM/lighthouse.git'
+        repo: https://github.com/VKCOM/lighthouse.git
         dest: "{{ root_dir }}/lignthouse"
 
     - name: Copy nginx lighthouse config
