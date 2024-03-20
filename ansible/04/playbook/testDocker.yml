@@ -2,5 +2,5 @@
 - name: Test Docker
   hosts: test
   tasks:
-    - name: Install clickhouse packages
+    - name: check docker connection
       ansible.builtin.shell: uptime     

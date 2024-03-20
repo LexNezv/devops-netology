@@ -1,0 +1,45 @@
+---
+- block:
+    - name: Get clickhouse distrib
+      ansible.builtin.get_url:
+        url: https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_all.deb
+        dest: "{{ download_path }}/{{ item }}-{{ clickhouse_version }}.deb"
+      with_items: "{{ clickhouse_packages }}"
+  rescue:
+    - name: Get clickhouse distrib
+      ansible.builtin.get_url:
+        url: https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb
+        dest: "{{ download_path }}/clickhouse-common-static-{{ clickhouse_version }}.deb"
+
+- name: Install clickhouse packages
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ download_path }}/{{ item }}-{{ clickhouse_version }}.deb"
+  with_items: "{{ clickhouse_packages }}"
+  notify: Start clickhouse service
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Copy clickhouse config
+  become: true
+  ansible.builtin.template:
+    src: templates/config.xml.j2
+    dest: /etc/clickhouse-server/config.xml
+  notify: Start clickhouse service
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: Pause before create db
+  ansible.builtin.pause:
+    seconds: 6
+
+- name: Create database
+  ansible.builtin.command: clickhouse-client -q 'create database logs;'
+  register: create_db
+  failed_when: create_db.rc != 0 and create_db.rc !=82
+  changed_when: create_db.rc == 0
+
+- name: Create table
+  ansible.builtin.command: clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (message String) ENGINE = MergeTree() ORDER BY tuple()'
+  ignore_errors: true
+

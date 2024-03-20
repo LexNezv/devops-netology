@@ -1,8 +1,7 @@
 ---
-- src: git@github.com:AlexeySetevoi/ansible-clickhouse.git
+- src: git@github.com:LexNezv/clickhouse-role.git
   scm: git
-  version: "1.13"
-  name: clickhouse 
+  name: clickhouse-role 
 
 - src: git@github.com:LexNezv/vector-role.git
   scm: git
