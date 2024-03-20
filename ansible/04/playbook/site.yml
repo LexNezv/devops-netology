@@ -1,0 +1,127 @@
+---
+- name: Install Clickhouse
+  hosts: clickhouse
+  handlers:
+    - name: Start clickhouse service
+      become: true
+      ansible.builtin.service:
+        name: clickhouse-server
+        state: restarted
+      ignore_errors: "{{ ansible_check_mode }}"
+  tasks:
+    - block:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: https://packages.clickhouse.com/deb/pool/main/c/{{ item }}/{{ item }}_{{ clickhouse_version }}_all.deb
+            dest: "{{ download_path }}/{{ item }}-{{ clickhouse_version }}.deb"
+          with_items: "{{ clickhouse_packages }}"
+      rescue:
+        - name: Get clickhouse distrib
+          ansible.builtin.get_url:
+            url: https://packages.clickhouse.com/deb/pool/main/c/clickhouse-common-static/clickhouse-common-static_{{ clickhouse_version }}_amd64.deb
+            dest: "{{ download_path }}/clickhouse-common-static-{{ clickhouse_version }}.deb"
+
+    - name: Install clickhouse packages
+      become: true
+      ansible.builtin.apt:
+        deb: "{{ download_path }}/{{ item }}-{{ clickhouse_version }}.deb"
+      with_items: "{{ clickhouse_packages }}"
+      notify: Start clickhouse service
+      ignore_errors: "{{ ansible_check_mode }}"
+
+    - name: Copy clickhouse config
+      become: true
+      ansible.builtin.template:
+        src: templates/config.xml.j2
+        dest: /etc/clickhouse-server/config.xml
+      notify: Start clickhouse service
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Pause before create db
+      ansible.builtin.pause:
+        seconds: 6
+
+    - name: Create database
+      ansible.builtin.command: clickhouse-client -q 'create database logs;'
+      register: create_db
+      failed_when: create_db.rc != 0 and create_db.rc !=82
+      changed_when: create_db.rc == 0
+
+    - name: Create table
+      ansible.builtin.command: clickhouse-client -q 'CREATE TABLE IF NOT EXISTS  logs.logtable (message String) ENGINE = MergeTree() ORDER BY tuple()'
+      ignore_errors: true
+
+- name: Install vector
+  hosts: vector
+  handlers:
+    - name: Restart vector service
+      become: true
+      ansible.builtin.service:
+        name: vector
+        state: restarted
+      ignore_errors: "{{ ansible_check_mode }}"
+  tasks:
+    - name: Get vector distrib
+      ansible.builtin.get_url:
+        url: https://packages.timber.io/vector/0.35.0/vector_0.35.0-1_amd64.deb
+        dest: ./vector_0.35.0-1_amd64.deb
+
+    - name: Install vector
+      become: true
+      ansible.builtin.apt:
+        deb: vector_0.35.0-1_amd64.deb
+      ignore_errors: "{{ ansible_check_mode }}"
+
+    - name: Install nginx for logs
+      become: true
+      ansible.builtin.apt:
+        name: nginx
+        update_cache: true
+
+    - name: Copy vector config
+      become: true
+      ansible.builtin.template:
+        src: templates/vector.yaml.j2
+        dest: /etc/vector/vector.yaml
+      notify: Restart vector service
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+- name: Install lighthouse
+  hosts: lighthouse
+  handlers:
+    - name: Reload nginx conf lighthouse
+      become: true
+      ansible.builtin.command: nginx -s reload
+      ignore_errors: "{{ ansible_check_mode }}"
+  tasks:
+    - name: Install nginx + git for lighthouse
+      become: true
+      ansible.builtin.apt:
+        name:
+          - nginx
+          - git
+        update_cache: true
+
+    - name: Creates nginx site directory
+      become: true
+      ansible.builtin.file:
+        path: "{{ root_dir }}"
+        state: directory
+
+    - name: Get lighthouse distrib
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/VKCOM/lighthouse.git
+        dest: "{{ root_dir }}/lignthouse"
+      ignore_errors: "{{ ansible_check_mode }}"
+
+    - name: Copy nginx lighthouse config
+      become: true
+      ansible.builtin.template:
+        src: templates/nginxdefault.j2
+        dest: /etc/nginx/sites-available/default
+      notify: Reload nginx conf lighthouse
