@@ -1,4 +1,9 @@
 ---
+test:
+  hosts:
+    test-01:
+      ansible_connection: docker
+      
 clickhouse:
   hosts:
     clickhouse-01:

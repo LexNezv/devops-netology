@@ -1,0 +1,6 @@
+---
+- name: Test Docker
+  hosts: test
+  tasks:
+    - name: Install clickhouse packages
+      ansible.builtin.shell: uptime     
