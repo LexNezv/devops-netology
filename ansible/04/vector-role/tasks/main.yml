@@ -1,0 +1,27 @@
+---
+- name: Get vector distrib
+  ansible.builtin.get_url:
+    url: https://packages.timber.io/vector/0.35.0/vector_0.35.0-1_amd64.deb
+    dest: ./vector_0.35.0-1_amd64.deb
+
+- name: Install vector
+  become: true
+  ansible.builtin.apt:
+    deb: vector_0.35.0-1_amd64.deb
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Install nginx for logs
+  become: true
+  ansible.builtin.apt:
+    name: nginx
+    update_cache: true
+
+- name: Copy vector config
+  become: true
+  ansible.builtin.template:
+    src: templates/vector.yaml.j2
+    dest: /etc/vector/vector.yaml
+  notify: Restart vector service
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
