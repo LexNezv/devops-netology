@@ -8,3 +8,5 @@ connectDocker:
 	docker exec -it test-01 bash
 testDocker:
 	ansible-playbook testDocker.yml
+pullRole:
+	ansible-galaxy install -r requirements.yml -p ./roles

@@ -1,5 +1,0 @@
----
-- name: Reload nginx conf lighthouse
-  become: true
-  ansible.builtin.command: nginx -s reload
-  ignore_errors: "{{ ansible_check_mode }}"
