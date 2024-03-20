@@ -1,0 +1,28 @@
+---
+- name: Install nginx + git for lighthouse
+  become: true
+  ansible.builtin.apt:
+    name:
+      - nginx
+      - git
+    update_cache: true
+
+- name: Creates nginx site directory
+  become: true
+  ansible.builtin.file:
+    path: "{{ root_dir }}"
+    state: directory
+
+- name: Get lighthouse distrib
+  become: true
+  ansible.builtin.git:
+    repo: https://github.com/VKCOM/lighthouse.git
+    dest: "{{ root_dir }}/lignthouse"
+  ignore_errors: "{{ ansible_check_mode }}"
+
+- name: Copy nginx lighthouse config
+  become: true
+  ansible.builtin.template:
+    src: templates/nginxdefault.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Reload nginx conf lighthouse
