@@ -1,15 +1,15 @@
 ---
 - src: git@github.com:LexNezv/clickhouse-role.git
   scm: git
-  version: "v0.1.0"
+  version: "0.1.1"
   name: clickhouse-role 
 
 - src: git@github.com:LexNezv/vector-role.git
   scm: git
-  version: "v0.1.0"
+  version: "0.1.1"
   name: vector-role 
 
 - src: git@github.com:LexNezv/lighthouse-role.git
   scm: git
-  version: "v0.1.0"
+  version: "0.1.1"
   name: lighthouse-role 
