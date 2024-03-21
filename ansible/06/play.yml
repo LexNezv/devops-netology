@@ -2,6 +2,6 @@
   hosts: test
   tasks:
     - name: Create text file
-      my_own_module:
+      my_own_namespace.yandex_cloud_elk.my_own_module:
         path: /file.txt
         content: "Hello World"
