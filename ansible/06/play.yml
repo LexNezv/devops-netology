@@ -1,0 +1,7 @@
+- name: Create text file on remote host
+  hosts: test
+  tasks:
+    - name: Create text file
+      my_own_module:
+        path: /file.txt
+        content: "Hello World"
