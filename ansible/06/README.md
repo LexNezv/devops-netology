@@ -199,8 +199,28 @@ bin  boot  dev  etc  file.txt  home  lib  lib32  lib64  libx32  media  mnt  opt 
 **Шаг 14.** Создайте ещё одну директорию любого наименования, перенесите туда single task playbook и архив c collection.
 
 **Шаг 15.** Установите collection из локального архива: `ansible-galaxy collection install <archivename>.tar.gz`.
+```
+06 git:(main) ✗ ansible-galaxy collection install ./my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz
+Starting galaxy collection install process
+Process install dependency map
+Starting collection install process
+Installing 'my_own_namespace.yandex_cloud_elk:1.0.0' to '/home/user/.ansible/collections/ansible_collections/my_own_namespace/yandex_cloud_elk'
+my_own_namespace.yandex_cloud_elk:1.0.0 was installed successfully
+```
 
 **Шаг 16.** Запустите playbook, убедитесь, что он работает.
+```
+PLAY [Create text file on remote host] ***********************************************************************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************************************************************************************
+ok: [test-01]
+
+TASK [Create text file] **************************************************************************************************************************************************************
+changed: [test-01]
+
+PLAY RECAP ***************************************************************************************************************************************************************************
+test-01                    : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
+```
 
 **Шаг 17.** В ответ необходимо прислать ссылки на collection и tar.gz архив, а также скриншоты выполнения пунктов 4, 6, 15 и 16.
 
