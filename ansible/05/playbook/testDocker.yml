@@ -1,0 +1,6 @@
+---
+- name: Test Docker
+  hosts: test
+  tasks:
+    - name: check docker connection
+      ansible.builtin.shell: uptime     
