@@ -19,6 +19,8 @@
 6. On test -> On fix, Done.
 7. Done -> Closed, Open.
 
+![bug](./img/bug.png)
+
 Остальные задачи должны проходить по упрощённому workflow:
 
 1. Open -> On develop.
@@ -26,6 +28,8 @@
 3. Done develop -> On test.
 4. On test -> On develop, Done.
 5. Done -> Closed, Open.
+
+![task](./img/task.png)
 
 **Что нужно сделать**
 
