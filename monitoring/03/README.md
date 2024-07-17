@@ -4,7 +4,7 @@
 
 При выполнении задания используйте дополнительные ресурсы:
 
-- [поднимаем elk в docker](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html);
+- [поднимаем elk в docker](https://www.elastic.imageco/guide/en/elastic-stack-get-started/current/get-started-docker.html);
 - [поднимаем elk в docker с filebeat и docker-логами](https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html);
 - [конфигурируем logstash](https://www.elastic.co/guide/en/logstash/current/configuration.html);
 - [плагины filter для logstash](https://www.elastic.co/guide/en/logstash/current/filter-plugins.html);
@@ -14,6 +14,13 @@
 - [решение ошибки increase vm.max_map_count elasticsearch](https://stackoverflow.com/questions/42889241/how-to-increase-vm-max-map-count).
 
 В процессе выполнения в зависимости от системы могут также возникнуть не указанные здесь проблемы.
+
+```
+vm.max_map_count=262144
+in your /etc/sysctl.conf and run
+
+$ sudo sysctl -p
+```
 
 Используйте output stdout filebeat/kibana и api elasticsearch для изучения корня проблемы и её устранения.
 
@@ -40,7 +47,9 @@ Filebeat следует сконфигурировать для отправки
 Результатом выполнения задания должны быть:
 
 - скриншот `docker ps` через 5 минут после старта всех контейнеров (их должно быть 5);
+![image](img/5.png)
 - скриншот интерфейса kibana;
+![image](img/4.png)
 - docker-compose манифест (если вы не использовали директорию help);
 - ваши yml-конфигурации для стека (если вы не использовали директорию help).
 
@@ -52,13 +61,11 @@ Filebeat следует сконфигурировать для отправки
 
 В манифесте директории help также приведенно dummy-приложение, которое генерирует рандомные события в stdout-контейнера.
 Эти логи должны порождать индекс logstash-* в elasticsearch. Если этого индекса нет — воспользуйтесь советами и источниками из раздела «Дополнительные ссылки» этого задания.
- 
+
+Поискал логи по нескольким паттернам:
+![image](img/6.png)
+![image](img/7.png)
 ---
 
-### Как оформить решение задания
-
-Выполненное домашнее задание пришлите в виде ссылки на .md-файл в вашем репозитории.
-
----
 
  
