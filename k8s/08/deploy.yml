@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homework
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multinginx-app
+  template:
+    metadata:
+      labels:
+        app: multinginx-app
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+          - name: http-port
+            containerPort: 80
+          volumeMounts:
+            - name: html-volume
+              mountPath: /usr/share/nginx/html
+        - name: network-multitool
+          image: wbitt/network-multitool
+          env:
+          - name: HTTP_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: multitoolsettings
+                key: HTTP_PORT
+          ports:
+          - containerPort: 8080
+            name: http-port
+      volumes:
+        - name: html-volume
+          configMap:
+            name: nginxsettings

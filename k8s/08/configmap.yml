@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: multitoolsettings
+  namespace: test
+data:
+  HTTP_PORT: "8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginxsettings
+  namespace: test
+data:
+  index.html: |
+    <html>
+      <head>
+        <title>My super Page</title>
+      </head>
+      <body>
+        <h1>Hello, super World!</h1>
+      </body>
+    </html>
