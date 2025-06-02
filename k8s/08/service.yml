@@ -17,8 +17,12 @@ kind: Ingress
 metadata:
   name: nginx-ingress
 spec:
+  tls:
+    - hosts:
+      - test.local
+      secretName: my-tls-secret
   rules:
-    - host:
+    - host: test.local
       http:
         paths:
           - path: /
