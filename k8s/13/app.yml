@@ -1,6 +1,4 @@
-###############
-# DEPLOYMENTS #
-###############
+# Frontend deployment
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,13 +30,14 @@ spec:
           value: "80"
         - name: BACKEND_SERVICE
           value: "network-multitool-backend"
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
+        # resources:
+        #   requests:
+        #     cpu: "100m"
+        #     memory: "128Mi"
+        #   limits:
+        #     cpu: "200m"
+        #     memory: "256Mi"
+# Backend deployment
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,6 +75,7 @@ spec:
           limits:
             cpu: "200m"
             memory: "256Mi"
+# Cache deployment
 ---
 apiVersion: apps/v1
 kind: Deployment

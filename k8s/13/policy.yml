@@ -137,3 +137,41 @@ spec:
     ports:
     - protocol: TCP
       port: 8080
+# Разрешаем заходит снаружи по 80
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-to-frontend
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0  # Разрешаем доступ отовсюду
+    ports:
+    - protocol: TCP
+      port: 80
+# Настройка ingress для frontend
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: network-multitool-ingress
+  namespace: app
+spec:
+  rules:
+  - host: testk8s.sila.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: network-multitool-frontend
+            port:
+              number: 80
