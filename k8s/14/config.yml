@@ -1,0 +1,36 @@
+# Main version
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-v1
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Main Version (v1)</title>
+    </head>
+    <body>
+        <h1>Welcome to NGINX v1!</h1>
+    </body>
+    </html>
+
+
+# Canary version
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-v2
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Canary Version (v2)</title>
+    </head>
+    <body>
+        <h1>Welcome to NGINX v2 (Canary)!</h1>
+    </body>
+    </html>
