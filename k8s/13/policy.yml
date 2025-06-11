@@ -1,0 +1,177 @@
+# Запрет всех входящих и исходящих подключений по умолчанию
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+# Разрешение доступа из frontend в backend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-to-backend
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: backend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: network-multitool
+          component: frontend
+    ports:
+    - protocol: TCP
+      port: 8080
+# Разрешение доступа из backend в cache
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-to-cache
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: cache
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: network-multitool
+          component: backend
+    ports:
+    - protocol: TCP
+      port: 6379
+# Разрешение внешнего доступа к frontend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-to-frontend
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - ports:
+    - protocol: TCP
+      port: 80
+# Разрешение исходящего DNS-трафика для всех компонентов
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+# Разрешение исходящего трафика из backend в cache
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-backend-egress-to-cache
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: backend
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: network-multitool
+          component: cache
+    ports:
+    - protocol: TCP
+      port: 6379
+# Разрешение исходящего трафика из frontend в backend
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-frontend-egress-to-backend
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: frontend
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: network-multitool
+          component: backend
+    ports:
+    - protocol: TCP
+      port: 8080
+# Разрешаем заходит снаружи по 80
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-to-frontend
+  namespace: app
+spec:
+  podSelector:
+    matchLabels:
+      app: network-multitool
+      component: frontend
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0  # Разрешаем доступ отовсюду
+    ports:
+    - protocol: TCP
+      port: 80
+# Настройка ingress для frontend
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: network-multitool-ingress
+  namespace: app
+spec:
+  rules:
+  - host: testk8s.sila.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: network-multitool-frontend
+            port:
+              number: 80
