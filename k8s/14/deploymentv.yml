@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-v1-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-v1
+      # version: v1
+  template:
+    metadata:
+      labels:
+        app: nginx-v1
+        # version: v1
+    spec:
+      # hostNetwork: true
+      # dnsPolicy: ClusterFirst
+      # dnsConfig:
+      #   nameservers:
+      #   - 10.244.197.200
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: nginx-html
+        configMap:
+          name: nginx-config-v1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-v2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-v2
+      # version: v2
+  template:
+    metadata:
+      labels:
+        app: nginx-v2
+        # version: v2
+    spec:
+      # hostNetwork: true
+      # dnsPolicy: ClusterFirst
+      # dnsConfig:
+      #   nameservers:
+      #   - 10.244.197.200
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: nginx-html
+        configMap:
+          name: nginx-config-v2
+

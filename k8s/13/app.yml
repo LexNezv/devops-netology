@@ -1,0 +1,167 @@
+# Frontend deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-multitool-frontend
+  labels:
+    app: network-multitool
+    component: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: network-multitool
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: network-multitool
+        component: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 80
+        env:
+        - name: HTTP_PORT
+          value: "80"
+        - name: BACKEND_SERVICE
+          value: "network-multitool-backend"
+        # resources:
+        #   requests:
+        #     cpu: "100m"
+        #     memory: "128Mi"
+        #   limits:
+        #     cpu: "200m"
+        #     memory: "256Mi"
+# Backend deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-multitool-backend
+  labels:
+    app: network-multitool
+    component: backend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: network-multitool
+      component: backend
+  template:
+    metadata:
+      labels:
+        app: network-multitool
+        component: backend
+    spec:
+      containers:
+      - name: backend
+        image: wbitt/network-multitool
+        ports:
+        - containerPort: 8080
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        - name: CACHE_SERVICE
+          value: "network-multitool-cache"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+# Cache deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-multitool-cache
+  labels:
+    app: network-multitool
+    component: cache
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: network-multitool
+      component: cache
+  template:
+    metadata:
+      labels:
+        app: network-multitool
+        component: cache
+    spec:
+      containers:
+      - name: cache
+        image: redis:alpine
+        ports:
+        - containerPort: 6379
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+
+###
+# Services
+###
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-multitool-frontend
+  labels:
+    app: network-multitool
+    component: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: network-multitool
+    component: frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-multitool-backend
+  labels:
+    app: network-multitool
+    component: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: network-multitool
+    component: backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-multitool-cache
+  labels:
+    app: network-multitool
+    component: cache
+spec:
+  type: ClusterIP
+  selector:
+    app: network-multitool
+    component: cache
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379
+
+
