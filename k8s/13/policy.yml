@@ -164,6 +164,7 @@ metadata:
   name: network-multitool-ingress
   namespace: app
 spec:
+  ingressClassName: nginx
   rules:
   - host: testk8s.sila.local
     http:
